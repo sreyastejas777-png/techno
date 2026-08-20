@@ -172,7 +172,7 @@ export default function AIChatbotPopup() {
   )}`;
 
   return (
-    <div className="fixed bottom-[88px] right-6 z-[60] flex flex-col items-end">
+    <div className="fixed bottom-[84px] sm:bottom-[88px] right-4 sm:right-6 z-[60] flex flex-col items-end">
       
       {/* Chat Window Popup Screen */}
       <AnimatePresence>
@@ -182,7 +182,7 @@ export default function AIChatbotPopup() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="w-[360px] sm:w-[400px] h-[480px] sm:h-[530px] max-h-[calc(100vh-180px)] bg-[#FEFAF1] dark:bg-[#0c0c0e] rounded-3xl border border-border shadow-skeuo-out flex flex-col overflow-hidden mb-4 mr-0 sm:mr-2"
+            className="w-[calc(100vw-2rem)] max-w-[360px] sm:max-w-[400px] h-[450px] sm:h-[530px] max-h-[calc(100vh-140px)] bg-[#FEFAF1] dark:bg-[#0c0c0e] rounded-3xl border border-border shadow-skeuo-out flex flex-col overflow-hidden mb-4 mr-0 sm:mr-2"
           >
             {/* Header: Brand Blue Gradient matching CalorTech branding */}
             <div className="bg-gradient-to-r from-accent to-secondary text-white p-5 flex justify-between items-center relative overflow-hidden shrink-0">

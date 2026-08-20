@@ -12,6 +12,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
@@ -20,6 +22,17 @@ export default function Navbar() {
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
 
   return (
     <header
@@ -307,22 +320,147 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="overflow-hidden lg:hidden"
           >
-            <div className="glass mx-4 mt-3 flex flex-col gap-4 rounded-2xl p-6">
+            <div className="glass mx-3 sm:mx-4 mt-3 flex max-h-[80vh] flex-col gap-3.5 rounded-2xl p-4 sm:p-6 overflow-y-auto no-scrollbar pb-safe">
               <SearchBar />
-              {navLinks.map((link) => (
-                <NavLink
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setMobileOpen(false)}
-                  className={({ isActive }) =>
-                    `text-sm font-semibold ${isActive ? 'text-accent' : 'text-primary dark:text-paper'}`
-                  }
-                >
-                  {link.label}
-                </NavLink>
-              ))}
+
+              {/* Home */}
+              <NavLink
+                to="/"
+                onClick={() => setMobileOpen(false)}
+                className={({ isActive }) =>
+                  `text-sm font-semibold py-1.5 ${isActive ? 'text-accent' : 'text-primary dark:text-paper'}`
+                }
+              >
+                Home
+              </NavLink>
+
+              {/* Products Accordion */}
+              <div className="flex flex-col border-y border-primary/5 dark:border-white/5 py-2">
+                <div className="flex items-center justify-between">
+                  <NavLink
+                    to="/products"
+                    onClick={() => setMobileOpen(false)}
+                    className={({ isActive }) =>
+                      `text-sm font-semibold ${isActive ? 'text-accent' : 'text-primary dark:text-paper'}`
+                    }
+                  >
+                    Products
+                  </NavLink>
+                  <button
+                    type="button"
+                    onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
+                    className="p-2 text-primary/70 dark:text-paper/70"
+                    aria-label="Toggle Products Submenu"
+                  >
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${mobileProductsOpen ? 'rotate-180 text-accent' : ''}`} />
+                  </button>
+                </div>
+
+                {mobileProductsOpen && (
+                  <div className="flex flex-col gap-2 pl-3 pt-2 text-xs">
+                    <span className="font-bold text-accent uppercase tracking-wider text-[10px]">Current Systems</span>
+                    <Link to="/products/mega" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
+                      <Cpu className="w-3.5 h-3.5 text-accent" /> Calor Mega
+                    </Link>
+                    <Link to="/products/standard" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
+                      <Layers className="w-3.5 h-3.5 text-accent" /> Calor Standard
+                    </Link>
+                    <Link to="/products/mini" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
+                      <Sparkles className="w-3.5 h-3.5 text-accent" /> Calor Mini
+                    </Link>
+                    <span className="font-bold text-accent uppercase tracking-wider text-[10px] mt-2">Upcoming Releases</span>
+                    <div className="py-1 text-primary/60 dark:text-paper/60">Calor Hybrid (Solar Tech)</div>
+                    <div className="py-1 text-primary/60 dark:text-paper/60">Calor Ultra (Industrial)</div>
+                    <div className="py-1 text-primary/60 dark:text-paper/60">Calor Nano (Botanical)</div>
+                  </div>
+                )}
+              </div>
+
+              {/* Applications */}
+              <NavLink
+                to="/applications"
+                onClick={() => setMobileOpen(false)}
+                className={({ isActive }) =>
+                  `text-sm font-semibold py-1.5 ${isActive ? 'text-accent' : 'text-primary dark:text-paper'}`
+                }
+              >
+                Applications
+              </NavLink>
+
+              {/* Technology */}
+              <NavLink
+                to="/technology"
+                onClick={() => setMobileOpen(false)}
+                className={({ isActive }) =>
+                  `text-sm font-semibold py-1.5 ${isActive ? 'text-accent' : 'text-primary dark:text-paper'}`
+                }
+              >
+                Technology
+              </NavLink>
+
+              {/* Gallery */}
+              <NavLink
+                to="/gallery"
+                onClick={() => setMobileOpen(false)}
+                className={({ isActive }) =>
+                  `text-sm font-semibold py-1.5 ${isActive ? 'text-accent' : 'text-primary dark:text-paper'}`
+                }
+              >
+                Gallery
+              </NavLink>
+
+              {/* About Us Accordion */}
+              <div className="flex flex-col border-y border-primary/5 dark:border-white/5 py-2">
+                <div className="flex items-center justify-between">
+                  <NavLink
+                    to="/about"
+                    onClick={() => setMobileOpen(false)}
+                    className={({ isActive }) =>
+                      `text-sm font-semibold ${isActive ? 'text-accent' : 'text-primary dark:text-paper'}`
+                    }
+                  >
+                    About Us
+                  </NavLink>
+                  <button
+                    type="button"
+                    onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
+                    className="p-2 text-primary/70 dark:text-paper/70"
+                    aria-label="Toggle About Submenu"
+                  >
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${mobileAboutOpen ? 'rotate-180 text-accent' : ''}`} />
+                  </button>
+                </div>
+
+                {mobileAboutOpen && (
+                  <div className="flex flex-col gap-2 pl-3 pt-2 text-xs">
+                    <Link to="/about#vision" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
+                      <Compass className="w-3.5 h-3.5 text-accent" /> Our Vision
+                    </Link>
+                    <Link to="/about#humidity-control" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
+                      <Info className="w-3.5 h-3.5 text-accent" /> Humidity Control
+                    </Link>
+                    <Link to="/about#journey" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
+                      <Calendar className="w-3.5 h-3.5 text-accent" /> Our Journey
+                    </Link>
+                    <Link to="/about#standards" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 py-1 text-primary/90 dark:text-paper/90">
+                      <HelpCircle className="w-3.5 h-3.5 text-accent" /> Standards
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Contact */}
+              <NavLink
+                to="/contact"
+                onClick={() => setMobileOpen(false)}
+                className={({ isActive }) =>
+                  `text-sm font-semibold py-1.5 ${isActive ? 'text-accent' : 'text-primary dark:text-paper'}`
+                }
+              >
+                Contact
+              </NavLink>
+
               <div className="flex items-center gap-3 pt-2">
-                {/* Minimal Theme Toggle Button */}
                 <button
                   onClick={toggleTheme}
                   className="flex h-10 w-10 items-center justify-center rounded-full text-primary dark:text-paper hover:text-accent transition-colors"

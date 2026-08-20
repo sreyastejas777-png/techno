@@ -215,7 +215,7 @@ export default function MachineOverview() {
                       ? 'right-[calc(100%+18px)]'
                       : 'left-[calc(100%+18px)]'
                   }`
-                : 'relative mt-6 mx-auto w-full max-w-sm'
+                : 'relative mt-8 mb-4 mx-auto w-full max-w-sm z-30'
             }`}
             style={
               isDesktop
@@ -233,7 +233,7 @@ export default function MachineOverview() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.94 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
-                className="relative rounded-2xl border-2 border-accent/40 bg-white/95 dark:border-accent/40 dark:bg-[#151518]/95 p-4 sm:p-4.5 shadow-2xl backdrop-blur-xl ring-1 ring-black/10 dark:ring-white/10"
+                className="relative rounded-2xl border-2 border-accent/40 bg-white/95 dark:border-accent/40 dark:bg-[#151518]/95 p-4 sm:p-4.5 shadow-2xl backdrop-blur-xl ring-1 ring-black/10 dark:ring-white/10 overflow-hidden"
               >
                 {/* Header: Category Badge & Steppers */}
                 <div className="flex items-center justify-between border-b border-secondary/15 dark:border-white/10 pb-2.5">
@@ -315,10 +315,10 @@ export default function MachineOverview() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.15 }}
-        className="mt-10 sm:mt-12 flex flex-col items-center justify-center gap-2.5 sm:gap-3.5"
+        className="mt-8 sm:mt-12 flex flex-col items-center justify-center gap-2.5 sm:gap-3.5 w-full max-w-full px-2"
       >
         {/* Row 1: Structural & Enclosure Controls */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+        <div className="flex flex-wrap sm:flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-full">
           {hotspots.slice(0, 5).map((h) => {
             const Icon = iconMap[h.id] || Sparkles;
             const isCurrent = h.id === activeId;

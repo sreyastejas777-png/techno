@@ -10,9 +10,11 @@ import Button from '../components/Button';
 import SectionHeading from '../components/SectionHeading';
 import StatCard from '../components/StatCard';
 import FeatureCard from '../components/FeatureCard';
+import MobileFeatureCarousel from '../components/MobileFeatureCarousel';
 import ApplicationCard from '../components/ApplicationCard';
 import ApplicationModal from '../components/ApplicationModal';
 import TestimonialCard from '../components/TestimonialCard';
+import MobileTestimonialSlider from '../components/MobileTestimonialSlider';
 import Newsletter from '../components/Newsletter';
 import MachineOverview from '../components/MachineOverview';
 import ParticlesBackground from '../components/ParticlesBackground';
@@ -101,9 +103,9 @@ export default function Home() {
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col justify-center items-start text-left lg:-ml-2 xl:-ml-3"
+            className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left lg:-ml-2 xl:-ml-3"
           >
-            <h1 className="font-display text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-6xl 2xl:text-7xl font-bold uppercase leading-[1.03] tracking-tight text-primary dark:text-paper">
+            <h1 className="font-display text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-6xl 2xl:text-7xl font-bold uppercase leading-[1.05] sm:leading-[1.03] tracking-tight text-primary dark:text-paper">
               Premium Drying
               <br />
               Solutions.
@@ -114,7 +116,7 @@ export default function Home() {
               Industrial-grade moisture control engineered to eliminate food waste and unlock
               agricultural profitability for family farms and cooperatives.
             </p>
-            <div className="mt-8 sm:mt-10 flex flex-wrap gap-4 sm:gap-5">
+            <div className="mt-8 sm:mt-10 flex flex-wrap justify-center lg:justify-start gap-3.5 sm:gap-5">
               <Button as={Link} to="/quote" variant="primary" icon={FaArrowRight}>
                 Get Quote
               </Button>
@@ -257,7 +259,11 @@ export default function Home() {
             subtitle="Precision moisture control, peak energy efficiency, and certified food safety."
             className="mb-6 sm:mb-8 max-w-2xl mx-auto text-center"
           />
-          <div className="grid gap-3.5 sm:gap-4.5 lg:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Mobile Auto-Rotating Feature Carousel (8-Second Span) */}
+          <MobileFeatureCarousel />
+
+          {/* Desktop Feature Grid */}
+          <div className="hidden lg:grid gap-5 grid-cols-4">
             {whyChooseUs.map((item, i) => (
               <FeatureCard key={item.title} {...item} index={i} />
             ))}
@@ -341,7 +347,11 @@ export default function Home() {
               />
             </motion.div>
 
-            <div className="grid gap-4 sm:gap-5 lg:gap-5.5 xl:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+            {/* Mobile Auto-Scrolling Testimonials */}
+            <MobileTestimonialSlider />
+
+            {/* Desktop Testimonials Grid */}
+            <div className="hidden lg:grid gap-5.5 xl:gap-6 grid-cols-5">
               {testimonials.map((t, idx) => (
                 <motion.div
                   key={t.name}
